@@ -22,16 +22,29 @@ const weapons = [
   { name: 'claw hammer', power: 50 },
   { name: 'sword', power: 100 }
 ];
+
 const monsters = [
   {
     name: "slime",
     level: 2,
     health: 15
+  },{
+    name: "bandit",
+    level: 3,
+    health: 40
   },
   {
     name: "fanged beast",
     level: 8,
     health: 60
+  },{
+    name: "goblin",
+    level: 5,
+    health: 30
+  },{
+    name: "witch",
+    level: 10,
+    health: 50
   },
   {
     name: "dragon",
@@ -39,6 +52,7 @@ const monsters = [
     health: 300
   }
 ]
+
 const locations = [
   {
     name: "town square",
@@ -57,6 +71,13 @@ const locations = [
     "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
     "button functions": [fightSlime, fightBeast, goTown],
     text: "You enter the cave. You see some monsters."
+  },{
+    
+    name: "forest",
+    "button text": ["Fight goblin", "Fight witch", "Go to town square"],
+    "button functions": [fightGoblin, fightWitch, goTown],
+    text: "You enter the forest. You see some monsters."
+  
   },
   {
     name: "fight",
@@ -92,15 +113,21 @@ const locations = [
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
+button4.onclick = goForest;
+button5.onclick = goCastle;
 
 function update(location) {
   monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
   button2.innerText = location["button text"][1];
   button3.innerText = location["button text"][2];
+  button4.innerText = location["button text"][3];
+  button5.innerText = location["button text"][4];
   button1.onclick = location["button functions"][0];
   button2.onclick = location["button functions"][1];
   button3.onclick = location["button functions"][2];
+  button4.onclick = location["button functions"][3];
+  button5.onclick = location["button functions"][4];
   text.innerHTML = location.text;
 }
 
@@ -114,6 +141,12 @@ function goStore() {
 
 function goCave() {
   update(locations[2]);
+}
+function goForest() {
+  update(locations[3]);
+}
+function goCastle() {
+  update(locations[4]);
 }
 
 function buyHealth() {
@@ -174,8 +207,18 @@ function fightDragon() {
   goFight();
 }
 
+function fightGoblin() {
+  fighting = 3;
+  goFight();
+}
+
+function fightWitch() {
+  fighting = 4;
+  goFight();
+}
+
 function goFight() {
-  update(locations[3]);
+  update(locations[4]);
   monsterHealth = monsters[fighting].health;
   monsterStats.style.display = "block";
   monsterName.innerText = monsters[fighting].name;
