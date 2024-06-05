@@ -1,3 +1,5 @@
+/*starting stats and query selectors*/
+
 let xp = 0;
 let health = 100;
 let gold = 50;
@@ -6,16 +8,25 @@ let fighting;
 let monsterHealth;
 let inventory = ["stick"];
 
+
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
+const button4 = document.querySelector("#button4");
+const button5 = document.querySelector("#button5"); 
+
 const text = document.querySelector("#text");
+
 const xpText = document.querySelector("#xpText");
 const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
+
+
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
+
+
 const weapons = [
   { name: 'stick', power: 5 },
   { name: 'dagger', power: 30 },
@@ -44,8 +55,13 @@ const monsters = [
   },{
     name: "witch",
     level: 10,
-    health: 50
-  },
+    health: 130
+  },{
+    name: "golem",
+    level: 15,
+    health: 200
+  }
+  ,
   {
     name: "dragon",
     level: 20,
@@ -56,8 +72,8 @@ const monsters = [
 const locations = [
   {
     name: "town square",
-    "button text": ["Go to store", "Go to cave", "Fight dragon"],
-    "button functions": [goStore, goCave, fightDragon],
+    "button text": ["Go to store", "Go to cave", "Go to forest", "Go to mountain", "Fight dragon"],
+    "button functions": [goStore, goCave, goForest, goMountain, fightDragon],
     text: "You are in the town square. You see a sign that says \"Store\"."
   },
   {
@@ -78,6 +94,12 @@ const locations = [
     "button functions": [fightGoblin, fightWitch, goTown],
     text: "You enter the forest. You see some monsters."
   
+  },
+  {
+    name: "mountain",
+    "button text": ["Fight bandit", "Fight golem", "Go to town square"],
+    "button functions": [fightBandit, fightGolem, goTown],
+    text: "You enter the mountain. You see some monsters."
   },
   {
     name: "fight",
@@ -112,9 +134,9 @@ const locations = [
 // initialize buttons
 button1.onclick = goStore;
 button2.onclick = goCave;
-button3.onclick = fightDragon;
-button4.onclick = goForest;
-button5.onclick = goCastle;
+button3.onclick = goForest;
+button4.onclick = goMountain;
+button5.onclick = fightDragon;
 
 function update(location) {
   monsterStats.style.display = "none";
@@ -123,6 +145,7 @@ function update(location) {
   button3.innerText = location["button text"][2];
   button4.innerText = location["button text"][3];
   button5.innerText = location["button text"][4];
+
   button1.onclick = location["button functions"][0];
   button2.onclick = location["button functions"][1];
   button3.onclick = location["button functions"][2];
@@ -145,7 +168,7 @@ function goCave() {
 function goForest() {
   update(locations[3]);
 }
-function goCastle() {
+function goMountain() {
   update(locations[4]);
 }
 
@@ -202,23 +225,33 @@ function fightBeast() {
   goFight();
 }
 
-function fightDragon() {
+
+function fightGoblin() {
   fighting = 2;
   goFight();
 }
 
-function fightGoblin() {
+function fightWitch() {
   fighting = 3;
   goFight();
 }
 
-function fightWitch() {
+function fightBandit() {
   fighting = 4;
   goFight();
 }
 
+function fightGolem() {
+  fighting = 5;
+  goFight();
+}
+function fightDragon() {
+  fighting = 6;
+  goFight();
+}
+
 function goFight() {
-  update(locations[4]);
+  update(locations[5]);
   monsterHealth = monsters[fighting].health;
   monsterStats.style.display = "block";
   monsterName.innerText = monsters[fighting].name;
@@ -270,15 +303,15 @@ function defeatMonster() {
   xp += monsters[fighting].level;
   goldText.innerText = gold;
   xpText.innerText = xp;
-  update(locations[4]);
+  update(locations[6]);
 }
 
 function lose() {
-  update(locations[5]);
+  update(locations[7]);
 }
 
 function winGame() {
-  update(locations[6]);
+  update(locations[8]);
 }
 
 function restart() {
@@ -294,7 +327,7 @@ function restart() {
 }
 
 function easterEgg() {
-  update(locations[7]);
+  update(locations[9]);
 }
 
 function pickTwo() {
